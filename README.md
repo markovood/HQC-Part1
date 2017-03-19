@@ -27,6 +27,7 @@ class class_123
     инстанция.Метод_нА_class_InClass_class_123(true); 
   }
 }
+
 Task 2. Make_Чуек in C#
 
 Refactor the following examples to produce code with well-named C# identifiers.
@@ -56,6 +57,7 @@ class Hauptklasse
     }
   }
 }
+
 Task 3. _ClickON_TheButton in JavaScript
 
 Refactor the following examples to produce code with well-named identifiers in JavaScript
@@ -70,6 +72,7 @@ function _ClickON_TheButton( THE_event, argumenti) {
     alert("No");
   }
 }
+
 Task 4. Re-factor and improve the code
 
 Refactor and improve the naming in the C# source project Application1.sln.
