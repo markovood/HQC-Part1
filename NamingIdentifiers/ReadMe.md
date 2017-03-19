@@ -1,74 +1,72 @@
-NAMING IDENTIFIERS HOMEWORK
 
-Task 1. class_123 in C#
+# Naming Identifiers Homework
+## Homework
 
-Refactor the following examples to produce code with well-named C# identifiers.
+### Task 1. class_123 in C&#35;
+*	Refactor the following examples to produce code with well-named C# identifiers.
 
-class class_123
-{
-  const int max_count=6;
-  class InClass_class_123
-  {
-    void Метод_нА_class_InClass_class_123(bool promenliva)
-    {
-      string promenlivaKatoString=promenliva.ToString();
-      Console.WriteLine(promenlivaKatoString);
-      }
-  }       
-  public static void Метод_За_Вход()
-  {
-    class_123.InClass_class_123 инстанция =
-      new class_123.InClass_class_123();
-    инстанция.Метод_нА_class_InClass_class_123(true); 
-  }
-}
+		class class_123
+		{
+		  const int max_count=6;
+		  class InClass_class_123
+		  {
+			void РњРµС‚РѕРґ_РЅРђ_class_InClass_class_123(bool promenliva)
+			{
+			  string promenlivaKatoString=promenliva.ToString();
+			  Console.WriteLine(promenlivaKatoString);
+			  }
+		  }		  
+		  public static void РњРµС‚РѕРґ_Р—Р°_Р’С…РѕРґ()
+		  {
+			class_123.InClass_class_123 РёРЅСЃС‚Р°РЅС†РёСЏ =
+			  new class_123.InClass_class_123();
+			РёРЅСЃС‚Р°РЅС†РёСЏ.РњРµС‚РѕРґ_РЅРђ_class_InClass_class_123(true); 
+		  }
+		}
 
-Task 2. Make_Чуек in C#
+### Task 2. Make_Р§СѓРµРє in C&#35;
+*	Refactor the following examples to produce code with well-named C# identifiers.
 
-Refactor the following examples to produce code with well-named C# identifiers.
+		class Hauptklasse
+		{
+		  enum РџРѕР» { СѓР»С‚СЂР°_Р‘Р°С‚РєР°, РЇРєР°_РњР°С†РєР° };
+		  class С‡СѓРµРє
+		  {
+			public РџРѕР» РїРѕР» { get; set; }
+			public string РёРјРµ_РЅР°_Р§СѓРµРєР° { get; set; }
+			public int Р’СЉР·СЂР°СЃС‚ { get; set; }
+		  }		  
+		  public void Make_Р§СѓРµРє(int РјР°РіРёС‡РµСЃРєРёСЏ_РќРѕРјРµСЂРќР°Р•Р”РРќР§РћР’Р•Рљ)
+		  {
+			С‡СѓРµРє new_Р§СѓРµРє = new С‡СѓРµРє();
+			new_Р§СѓРµРє.Р’СЉР·СЂР°СЃС‚ = РјР°РіРёС‡РµСЃРєРёСЏ_РќРѕРјРµСЂРќР°Р•Р”РРќР§РћР’Р•Рљ;
+			if (РјР°РіРёС‡РµСЃРєРёСЏ_РќРѕРјРµСЂРќР°Р•Р”РРќР§РћР’Р•Рљ%2 == 0)
+			{
+			  new_Р§СѓРµРє.РёРјРµ_РЅР°_Р§СѓРµРєР° = "Р‘Р°С‚РєР°С‚Р°";
+			  new_Р§СѓРµРє.РїРѕР» = РџРѕР».СѓР»С‚СЂР°_Р‘Р°С‚РєР°;
+			}
+			else
+			{
+			  new_Р§СѓРµРє.РёРјРµ_РЅР°_Р§СѓРµРєР° = "РњР°С†РµС‚Рѕ";
+			  new_Р§СѓРµРє.РїРѕР» = РџРѕР».РЇРєР°_РњР°С†РєР°;
+			}
+		  }
+		}
+		
+### Task 3. _ClickON_TheButton in JavaScript
+*	Refactor the following examples to produce code with well-named identifiers in JavaScript
 
-class Hauptklasse
-{
-  enum Пол { ултра_Батка, Яка_Мацка };
-  class чуек
-  {
-    public Пол пол { get; set; }
-    public string име_на_Чуека { get; set; }
-    public int Възраст { get; set; }
-  }       
-  public void Make_Чуек(int магическия_НомерНаЕДИНЧОВЕК)
-  {
-    чуек new_Чуек = new чуек();
-    new_Чуек.Възраст = магическия_НомерНаЕДИНЧОВЕК;
-    if (магическия_НомерНаЕДИНЧОВЕК%2 == 0)
-    {
-      new_Чуек.име_на_Чуека = "Батката";
-      new_Чуек.пол = Пол.ултра_Батка;
-    }
-    else
-    {
-      new_Чуек.име_на_Чуека = "Мацето";
-      new_Чуек.пол = Пол.Яка_Мацка;
-    }
-  }
-}
+		function _ClickON_TheButton( THE_event, argumenti) {
+		  var moqProzorec= window,
+			  brauzyra = moqProzorec.navigator.appCodeName,
+			  ism=brauzyra=="Mozilla";
+		  if(ism) {
+			alert("Yes");
+		  } else {
+			alert("No");
+		  }
+		}
 
-Task 3. _ClickON_TheButton in JavaScript
-
-Refactor the following examples to produce code with well-named identifiers in JavaScript
-
-function _ClickON_TheButton( THE_event, argumenti) {
-  var moqProzorec= window,
-      brauzyra = moqProzorec.navigator.appCodeName,
-      ism=brauzyra=="Mozilla";
-  if(ism) {
-    alert("Yes");
-  } else {
-    alert("No");
-  }
-}
-
-Task 4. Re-factor and improve the code
-
-Refactor and improve the naming in the C# source project Application1.sln.
-You are allowed to make other improvements in the code as well (not only naming) as well as to fix bugs.
+### Task 4. Re-factor and improve the code
+*	Refactor and improve the naming in the C# source project `Application1.sln`.
+*	You are allowed to make other improvements in the code as well (not only naming) as well as to fix bugs.
