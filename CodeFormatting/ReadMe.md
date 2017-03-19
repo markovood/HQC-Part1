@@ -1,4 +1,4 @@
-Homework
+HOMEWORK
 
 Task 1. Formatting C#
 
