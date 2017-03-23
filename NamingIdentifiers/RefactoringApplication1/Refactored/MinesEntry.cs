@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading;
 
-    public static class Mines
+    public static class MinesEntry
     {
         private const int MAX_MOVES = 35;
         private static string command = string.Empty;
@@ -40,18 +40,15 @@
                     case "top":
                         ExecuteTopCommand();
                         break;
-
                     case "restart":
                         ExecuteRestartCommand();
                         continue;
                     case "exit":
                         ExecuteExitCommand();
                         break;
-
                     case "turn":
                         ExecuteTurnCommand();
                         break;
-
                     default:
                         Console.WriteLine("Error! Invalid command!");
                         break;
@@ -70,172 +67,6 @@
             while (command != "exit");
 
             PrintGoodbyeMessage();
-        }
-
-        private static void ReadCommand()
-        {
-            Console.SetCursorPosition(0, 10);
-            Console.WriteLine(" Enter command or row and column separated by a space: ");
-            ClearLine();
-            Console.SetCursorPosition(20, 11);
-            command = Console.ReadLine().Trim();
-        }
-
-        private static void ExecuteAllBombsRevealed()
-        {
-            Console.SetCursorPosition(0, 10);
-            string clearRestOfLine = new string(' ', 18);
-            Console.Write(" BRAVOOOS! You've revealed all bombs.{0}", clearRestOfLine);
-            PrintField(bombsField);
-
-            Console.SetCursorPosition(0, 11);
-            ClearLine();
-            Console.SetCursorPosition(0, 11);
-            Console.Write(" Enter your name, dude: ");
-            string name = Console.ReadLine();
-
-            Score points = new Score(name, pointCounter);
-            champions.Add(points);
-
-            PrintRating(champions);
-
-            playingField = CreatePlayingField();
-            bombsField = SpreadBombs();
-            pointCounter = 0;
-            allBombsRevealed = false;
-        }
-
-        private static void ExecuteTurnCommand()
-        {
-            if (bombsField[row, column] != '*')
-            {
-                PlayTurn(playingField, bombsField, row, column);
-                pointCounter++;
-
-                if (MAX_MOVES == pointCounter)
-                {
-                    allBombsRevealed = true;
-                }
-                else
-                {
-                    Console.Clear();
-                    PrintSideMenu();
-                    PrintField(playingField);
-                }
-            }
-            else
-            {
-                boom = true;
-            }
-        }
-
-        private static void ExecuteExitCommand()
-        {
-            Console.SetCursorPosition(20, 11);
-            Console.Write("Bye, bye, bye!");
-            Thread.Sleep(1000);
-        }
-
-        private static void ExecuteRestartCommand()
-        {
-            Console.Clear();
-            playingField = CreatePlayingField();
-            bombsField = SpreadBombs();
-            PrintSideMenu();
-            PrintField(playingField);
-            boom = false;
-        }
-
-        private static void ExecuteTopCommand()
-        {
-            ClearLine();
-            PrintRating(champions);
-        }
-
-        private static void ExecuteBoom()
-        {
-            PrintField(bombsField);
-            Console.WriteLine(" Booooom! You died with {0} points. Enter nickname:     ", pointCounter);
-            ClearLine();
-            Console.SetCursorPosition(20, 11);
-            string nickname = Console.ReadLine();
-            Score currentScore = new Score(nickname, pointCounter);
-
-            AddToTop5(currentScore);
-
-            champions = champions.OrderByDescending(r => r.Points).ThenByDescending(r => r.Name).ToList();
-            PrintRating(champions);
-
-            playingField = CreatePlayingField();
-            bombsField = SpreadBombs();
-            pointCounter = 0;
-            boom = false;
-        }
-
-        private static void AddToTop5(Score currentScore)
-        {
-            if (champions.Count < 5)
-            {
-                champions.Add(currentScore);
-            }
-            else
-            {
-                for (int i = 0; i < champions.Count; i++)
-                {
-                    if (champions[i].Points < currentScore.Points)
-                    {
-                        champions.Insert(i, currentScore);
-                        champions.RemoveAt(champions.Count - 1);
-                        break;
-                    }
-                }
-            }
-        }
-
-        private static void ClearLine()
-        {
-            Console.Write(new string(' ', 54));
-        }
-
-        private static bool IsTurnCommand(string command)
-        {
-            if (command.Length >= 3 && command[1] == ' ')
-            {
-                if (int.TryParse(command[0].ToString(), out row) &&
-                    int.TryParse(command[2].ToString(), out column) &&
-                    row <= playingField.GetLength(0) &&
-                    column <= playingField.GetLength(1))
-                {
-                    return true;
-                }
-
-                return false;
-            }
-
-            return false;
-        }
-
-        private static void PrintSideMenu()
-        {
-            // split console window with a vertical line
-            int maxWindowRows = Console.WindowHeight;
-            for (int row = 0; row < maxWindowRows; row++)
-            {
-                Console.SetCursorPosition(55, row);
-                Console.WriteLine("|");
-            }
-
-            Console.SetCursorPosition(75, 0);
-            Console.Write("Menu".ToUpper());
-
-            Console.SetCursorPosition(65, 3);
-            Console.WriteLine("Commands: ");
-            Console.SetCursorPosition(65, 4);
-            Console.WriteLine("top - shows rating chart");
-            Console.SetCursorPosition(65, 5);
-            Console.WriteLine("restart - starts new game");
-            Console.SetCursorPosition(65, 6);
-            Console.WriteLine("exit - closes the game");
         }
 
         private static void InitializeDefaultConsoleWindow()
@@ -274,6 +105,172 @@
             Console.Clear();
         }
 
+        private static void PrintSideMenu()
+        {
+            // split console window with a vertical line
+            int maxWindowRows = Console.WindowHeight;
+            for (int row = 0; row < maxWindowRows; row++)
+            {
+                Console.SetCursorPosition(55, row);
+                Console.WriteLine("|");
+            }
+
+            Console.SetCursorPosition(75, 0);
+            Console.Write("Menu".ToUpper());
+
+            Console.SetCursorPosition(65, 3);
+            Console.WriteLine("Commands: ");
+            Console.SetCursorPosition(65, 4);
+            Console.WriteLine("top - shows rating chart");
+            Console.SetCursorPosition(65, 5);
+            Console.WriteLine("restart - starts new game");
+            Console.SetCursorPosition(65, 6);
+            Console.WriteLine("exit - closes the game");
+        }
+
+        private static void PrintField(char[,] field)
+        {
+            int rows = field.GetLength(0);
+            int cols = field.GetLength(1);
+
+            Console.SetCursorPosition(10, 1);
+            Console.Write("    0 1 2 3 4 5 6 7 8 9");
+            Console.SetCursorPosition(10, 2);
+            Console.Write("   ---------------------");
+            Console.SetCursorPosition(10, 3);
+            for (int row = 0; row < rows; row++)
+            {
+                Console.Write("{0} | ", row);
+                for (int col = 0; col < cols; col++)
+                {
+                    Console.Write(string.Format("{0} ", field[row, col]));
+                }
+
+                Console.Write("|");
+                Console.SetCursorPosition(10, row + 4);
+            }
+
+            Console.Write("   ---------------------\n\n");
+        }
+
+        private static void ReadCommand()
+        {
+            Console.SetCursorPosition(0, 10);
+            Console.WriteLine(" Enter command or row and column separated by a space: ");
+            ClearLine();
+            Console.SetCursorPosition(20, 11);
+            command = Console.ReadLine().Trim();
+        }
+
+        private static bool IsTurnCommand(string command)
+        {
+            if (command.Length >= 3 && command[1] == ' ')
+            {
+                if (int.TryParse(command[0].ToString(), out row) &&
+                    int.TryParse(command[2].ToString(), out column) &&
+                    row <= playingField.GetLength(0) &&
+                    column <= playingField.GetLength(1))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return false;
+        }
+
+        private static void ExecuteTopCommand()
+        {
+            ClearLine();
+            PrintRating(champions);
+        }
+
+        private static void ExecuteRestartCommand()
+        {
+            Console.Clear();
+            playingField = CreatePlayingField();
+            bombsField = SpreadBombs();
+            PrintSideMenu();
+            PrintField(playingField);
+            boom = false;
+        }
+
+        private static void ExecuteExitCommand()
+        {
+            Console.SetCursorPosition(20, 11);
+            Console.Write("Bye, bye, bye!");
+            Thread.Sleep(1000);
+        }
+
+        private static void ExecuteTurnCommand()
+        {
+            if (bombsField[row, column] != '*')
+            {
+                PlayTurn(playingField, bombsField, row, column);
+                pointCounter++;
+
+                if (MAX_MOVES == pointCounter)
+                {
+                    allBombsRevealed = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    PrintSideMenu();
+                    PrintField(playingField);
+                }
+            }
+            else
+            {
+                boom = true;
+            }
+        }
+
+        private static void ExecuteBoom()
+        {
+            PrintField(bombsField);
+            Console.WriteLine(" Booooom! You died with {0} points. Enter nickname:     ", pointCounter);
+            ClearLine();
+            Console.SetCursorPosition(20, 11);
+            string nickname = Console.ReadLine();
+            Score currentScore = new Score(nickname, pointCounter);
+
+            AddToTop5(currentScore);
+
+            champions = champions.OrderByDescending(r => r.Points).ThenByDescending(r => r.Name).ToList();
+            PrintRating(champions);
+
+            playingField = CreatePlayingField();
+            bombsField = SpreadBombs();
+            pointCounter = 0;
+            boom = false;
+        }
+
+        private static void ExecuteAllBombsRevealed()
+        {
+            Console.SetCursorPosition(0, 10);
+            string clearRestOfLine = new string(' ', 18);
+            Console.Write(" BRAVOOOS! You've revealed all bombs.{0}", clearRestOfLine);
+            PrintField(bombsField);
+
+            Console.SetCursorPosition(0, 11);
+            ClearLine();
+            Console.SetCursorPosition(0, 11);
+            Console.Write(" Enter your name, dude: ");
+            string name = Console.ReadLine();
+
+            Score points = new Score(name, pointCounter);
+            champions.Add(points);
+
+            PrintRating(champions);
+
+            playingField = CreatePlayingField();
+            bombsField = SpreadBombs();
+            pointCounter = 0;
+            allBombsRevealed = false;
+        }
+
         private static void PrintGoodbyeMessage()
         {
             Console.Clear();
@@ -291,6 +288,31 @@
             Console.SetCursorPosition(Console.WindowWidth / 2, 10);
             Console.WriteLine("See you!");
             Thread.Sleep(1000);
+        }
+
+        private static void AddToTop5(Score currentScore)
+        {
+            if (champions.Count < 5)
+            {
+                champions.Add(currentScore);
+            }
+            else
+            {
+                for (int i = 0; i < champions.Count; i++)
+                {
+                    if (champions[i].Points < currentScore.Points)
+                    {
+                        champions.Insert(i, currentScore);
+                        champions.RemoveAt(champions.Count - 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private static void ClearLine()
+        {
+            Console.Write(new string(' ', 54));
         }
 
         private static void PrintRating(List<Score> points)
@@ -318,31 +340,6 @@
             char bombsCount = CountBombsArroundPosition(bombs, row, column);
             bombs[row, column] = bombsCount;
             field[row, column] = bombsCount;
-        }
-
-        private static void PrintField(char[,] field)
-        {
-            int rows = field.GetLength(0);
-            int cols = field.GetLength(1);
-
-            Console.SetCursorPosition(10, 1);
-            Console.Write("    0 1 2 3 4 5 6 7 8 9");
-            Console.SetCursorPosition(10, 2);
-            Console.Write("   ---------------------");
-            Console.SetCursorPosition(10, 3);
-            for (int row = 0; row < rows; row++)
-            {
-                Console.Write("{0} | ", row);
-                for (int col = 0; col < cols; col++)
-                {
-                    Console.Write(string.Format("{0} ", field[row, col]));
-                }
-
-                Console.Write("|");
-                Console.SetCursorPosition(10, row + 4);
-            }
-
-            Console.Write("   ---------------------\n\n");
         }
 
         private static char[,] CreatePlayingField()

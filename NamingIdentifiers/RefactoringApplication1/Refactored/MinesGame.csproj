@@ -79,7 +79,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mines.cs" />
+    <Compile Include="MinesEntry.cs" />
     <Compile Include="Score.cs" />
   </ItemGroup>
   <ItemGroup>
