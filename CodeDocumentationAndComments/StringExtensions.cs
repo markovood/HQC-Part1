@@ -232,7 +232,7 @@
         /// Gets the file extension.
         /// </summary>
         /// <param name="fileName">Full filename as a string.</param>
-        /// <returns>A string that represents the file extension. An empty string if fileName is null or white space. An empty string if ...</returns>
+        /// <returns>A string that represents the file extension. An empty string if fileName is null or white space. An empty string if the file has no extension, or it is null or empty.</returns>
         public static string GetFileExtension(this string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
