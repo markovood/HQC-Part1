@@ -249,6 +249,11 @@
             return fileParts.Last().Trim().ToLower();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileExtension"></param>
+        /// <returns></returns>
         public static string ToContentType(this string fileExtension)
         {
             var fileExtensionToContentType = new Dictionary<string, string>
