@@ -250,10 +250,10 @@
         }
 
         /// <summary>
-        /// 
+        /// Translates the file extension into type of content.
         /// </summary>
-        /// <param name="fileExtension"></param>
-        /// <returns></returns>
+        /// <param name="fileExtension">The extension of the file being translated.</param>
+        /// <returns>If in the list of known file extensions returns the type of content corresponding to provided extension else returns unknown binary file type of content i.e. "application/octet-stream".</returns>
         public static string ToContentType(this string fileExtension)
         {
             var fileExtensionToContentType = new Dictionary<string, string>
@@ -278,6 +278,11 @@
             return "application/octet-stream";
         }
 
+        /// <summary>
+        /// Turns passed input string into byte array.
+        /// </summary>
+        /// <param name="input">The string to be processed.</param>
+        /// <returns>Array of the bytes from the string passed.</returns>
         public static byte[] ToByteArray(this string input)
         {
             var bytesArray = new byte[input.Length * sizeof(char)];
