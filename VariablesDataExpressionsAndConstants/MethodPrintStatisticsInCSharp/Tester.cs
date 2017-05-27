@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MethodPrintStatisticsInCSharp
+﻿namespace MethodPrintStatisticsInCSharp
 {
+    using System;
+
     public class Tester
     {
         public static void Main()
