@@ -1,0 +1,22 @@
+// refactoring if statements
+
+Potato potato;
+//... 
+if (potato != null)
+{
+	if(potato.HasBeenPeeled && !potato.IsRotten)
+	{
+        Cook(potato);
+	}
+}
+
+// another example
+
+bool yIsBetweenMinAndMax = MIN_Y <= y && y <= MAX_Y;	// (MAX_Y >= y && MIN_Y <= y)
+bool xIsBeforeMax = x =< MAX_X;
+bool xIsAfterMin = x >= MIN_X;
+
+if (xIsAfterMin && (xIsBeforeMax && (yIsBetweenMinAndMax && shouldVisitCell)))
+{
+   VisitCell();
+}
