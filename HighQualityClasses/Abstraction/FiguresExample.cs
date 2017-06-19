@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Abstraction
 {
@@ -14,6 +15,15 @@ namespace Abstraction
             Console.WriteLine("I am a rectangle. " +
                 "My perimeter is {0:f2}. My surface is {1:f2}.",
                 rect.CalcPerimeter(), rect.CalcSurface());
+
+            // re-factored
+            List<Figure> figures = new List<Figure>() { new Circle(5), new Rectangle(2, 3) };
+            foreach (var figure in figures)
+            {
+                figure.Introduce();
+                Console.WriteLine("My perimeter is {0:f2}. My surface is {1:f2}.",
+                                    figure.CalcPerimeter(), figure.CalcSurface());
+            }
         }
     }
 }
